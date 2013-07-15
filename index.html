@@ -52,12 +52,12 @@
 				//scene.fog = new THREE.FogExp2( 0xefd1b5, 0.0025 );
 				//scene.fog = new THREE.FogExp2( 0x000000, 0.00045 );
 
-				var light, object, object2, materials;
+				var light, object;
 
 				scene.add( new THREE.AmbientLight( 0x404040 ) );
 
 				light = new THREE.DirectionalLight( 0xffffff );
-				light.position.set( 0, 1, 0 );
+				light.position.set( 0, 0, 1500 );
 				scene.add( light );
 
 
@@ -119,7 +119,7 @@
 			{
 				var i = scene.children.length % COLORSETS.RAINBOWBRITE.length
 				//var color = COLORSETS.RAINBOWBRITE[i]
-				var color = new THREE.Color( 0xffffff );
+				var color = new THREE.Color( 0x0000ff );
 				//color.setRGB( Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99) );
 
 /*
@@ -136,6 +136,17 @@
 					
 				materials );
 */				
+	
+	/*
+			this._geometry = new THREE.CubeGeometry( 40, 40, 40 );
+			
+			var object = new THREE.Mesh(this._geometry, new THREE.MeshLambertMaterial( 
+				{ 
+					color: 0xffffff,
+					wireframe: false 
+				}
+			));
+*/
 			var wireframe_material = new THREE.MeshBasicMaterial( 
 				{
 					color: 0x000000, 
@@ -153,7 +164,7 @@
 				})
 				
 				var circle = new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 )
-				var object = new THREE.Mesh(circle, fill_material, wireframe_material);
+				var object = new THREE.Mesh(circle, fill_material);
 				
 				object.position.set( 0, 0, 0 );
 				object.rotation.z = 3.14159
@@ -203,7 +214,18 @@
 						
 							var color =  COLORSETS.RAINBOWBRITE[b % COLORSETS.RAINBOWBRITE.length]
 							//console.log("object.color = " + object.color)
-						//	object.material.color =  new THREE.Color( 0xff0000 ) // new THREE.Color( color )
+							
+							var fill_material = new THREE.MeshBasicMaterial( 
+								{ 
+									color: color, 
+									wireframe: false, 
+									transparent: true, 
+									opacity: 0.95, 
+									side: THREE.DoubleSide 
+								})
+								
+							object.material =fill_material
+							//.setColor(new THREE.Color( 0xff0000 )) // new THREE.Color( color )
 							//object.position.z = bins[i]*3
 							//object.rotation.x = bins[i]/10
 						
