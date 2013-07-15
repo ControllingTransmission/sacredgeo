@@ -96,15 +96,21 @@
 			function setupGrid()
 			{
 				gridRows = []
-				var max = 27
+				//var max = 27
+				var max = 37
+				var spacing = max*100/27
 				for (var x = 0; x < max; x++)
 				{
 					for (var y = 0; y < max; y++)
 					{
 						var obj = addObject()
-						obj.position.x = (x - (max-1)/2) *100 + (y % 2)*50
-						obj.position.y = (y - (max-1)/2) *100 
+						obj.position.x = (x - (max-1)/2) *spacing + (y % 2)*spacing/2
+						obj.position.y = (y - (max-1)/2) *spacing 
 						obj.position.z = 0
+						obj.original_position = {}
+						obj.original_position.x = obj.position.x
+						obj.original_position.y = obj.position.y
+						obj.original_position.z = obj.position.z
 					} 
 				} 
 			}
@@ -116,35 +122,44 @@
 				var color = new THREE.Color( 0xffffff );
 				//color.setRGB( Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99) );
 
+/*
 				materials = [
-					new THREE.MeshBasicMaterial( { color: color, wireframe: true, transparent: false, opacity: 0.1, side: THREE.DoubleSide } )
+					new THREE.MeshBasicMaterial( { color: color, wireframe: false, transparent: true, opacity: 0.95, side: THREE.DoubleSide } )
 				];
 
 				// outer radius, inner radius, angle divisions, radial divisions
 				object = THREE.SceneUtils.createMultiMaterialObject(
 				//	new THREE.CircleGeometry( 30, 40, 0, Math.PI * 2 ), 
-					new THREE.CircleGeometry( 5, 50, 0, Math.PI * 2 ), 
+					new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 ), 
+					//new THREE.CubeGeometry( 3,3,3, 1, 1, 1),
+
+					
 				materials );
+*/				
+			var wireframe_material = new THREE.MeshBasicMaterial( 
+				{
+					color: 0x000000, 
+					wireframe: true, 
+					wireframe_linewidth: 1 
+				} );
+			
+			var fill_material = new THREE.MeshBasicMaterial( 
+				{ 
+					color: color, 
+					wireframe: false, 
+					transparent: true, 
+					opacity: 0.95, 
+					side: THREE.DoubleSide 
+				})
 				
-				/*
-				var circle = new THREE.CircleGeometry( 30, 40, 0, Math.PI * 2 )
-				var object = new THREE.Mesh(circle, new THREE.MeshLambertMaterial( 
-					{ 
-						color: 0xffffff,
-						//color: 0x0000ff,
-						wireframe: false ,
-						transparent: false,
-						opacity: 1.0,
-						side: THREE.DoubleSide 
-					}
-				));
-*/
+				var circle = new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 )
+				var object = new THREE.Mesh(circle, fill_material, wireframe_material);
 				
 				object.position.set( 0, 0, 0 );
-				object.rotation.z = 3.14159/2
-				object.speed = 8*(Math.random() +1) //{ x:0, y:0, z:8 }
-				var s = (Math.random() - .5)/50
-				object.rot = s
+				object.rotation.z = 3.14159
+				//object.speed = 8*(Math.random() +1) //{ x:0, y:0, z:8 }
+				//var s = (Math.random() - .5)/50
+				//object.rot = s
 				object.scale.x = 1
 				object.scale.y = 1
 				scene.add( object );
@@ -176,25 +191,42 @@
 					var x = object.position.x
 					var y = object.position.y
 
-					var r = Math.sqrt((x*x) + (y*y) + 1)
+					var r = Math.sqrt((x*x) + (y*y) +1)
 
-					if (bins && i < bins.length)
+					if (bins)
 					{
 						//var b = Math.floor(i/10)
-						var b = Math.floor(r/10)
+						var b = Math.floor((r+400)/10)
 						
-						//var color =  COLORSETS.RAINBOWBRITE[b % COLORSETS.RAINBOWBRITE.length]
-						//object.color = new THREE.Color( color )
-						//object.position.z = bins[i]*3
-						//object.rotation.x = bins[i]/10
-						var vs = .0 + bins[b]/100
-						var s = vs*vs*vs*vs*vs
-						object.scale.x = s*10+5
-						object.scale.y = s*10+5
-						object.rotation.x = s/r
-						object.rotation.y = s/r
-						object.rotation.z = s/r
-						object.position.z = -s*300
+						if (b < bins.length)
+						{
+						
+							var color =  COLORSETS.RAINBOWBRITE[b % COLORSETS.RAINBOWBRITE.length]
+							//console.log("object.color = " + object.color)
+						//	object.material.color =  new THREE.Color( 0xff0000 ) // new THREE.Color( color )
+							//object.position.z = bins[i]*3
+							//object.rotation.x = bins[i]/10
+						
+/*
+							var vs = bins[b]/120
+							var s = vs*vs*vs*vs*vs
+							object.scale.x = s
+							object.scale.y = s
+							//object.rotation.x = s/r
+							//object.rotation.y = s/r
+							//object.rotation.z = Math.PI/4
+							//object.position.z = 100-s*60 
+							object.position.z += Math.sin(timer)
+*/
+							var vs = bins[b]/100
+							var s = vs*vs*vs*vs*vs
+							object.scale.x = s*.5
+							object.scale.y = s*.5
+							//object.rotation.x = Math.cos(s)
+							//object.rotation.y = Math.sin(s)
+							//object.rotation.z = s/r
+							object.position.z = -s*30
+						}
 					}
 					
 					
