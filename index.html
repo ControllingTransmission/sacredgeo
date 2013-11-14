@@ -42,7 +42,8 @@
 			var camera, scene, renderer;
 			
 			var Mode = {
-				isWireframe: false
+				isWireframe: false,
+				blackAndWhite: false
 			}
 			
 			$(document).ready(function()
@@ -231,9 +232,12 @@
 						
 						if (b < bins.length)
 						{
-						
 							var color =  COLORSETS.RAINBOWBRITE[b % COLORSETS.RAINBOWBRITE.length]
 							//console.log("object.color = " + object.color)
+							if (Mode.blackAndWhite)
+							{
+								color = 0xffffff
+							}
 							
 							var fill_material = new THREE.MeshBasicMaterial( 
 								{ 

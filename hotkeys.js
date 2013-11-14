@@ -34,8 +34,12 @@ $(document).bind('keydown', '8', function(e) {
 	Mode.isWireframe = !Mode.isWireframe
 });
 
-$(document).bind('keyup', '8', function(e) {
+$(document).bind('keydown', '9', function(e) {
+	Mode.blackAndWhite = true
+});
 
+$(document).bind('keyup', '9', function(e) {
+	Mode.blackAndWhite = false
 });
 
 
