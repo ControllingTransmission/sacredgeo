@@ -108,9 +108,52 @@ $(document).bind('keydown', 'x', function(e) {
 	Mode.rotating = !Mode.rotating
 })
 
-
 $(document).bind('keydown', 'c', function(e) {
+	camera.position.x = 0;
+	camera.position.y = 0;
 	camera.position.z = 1500;
+	resetCameraRot()
 	camera.lookAt({x:0,y:0,z:0});
 })
 
+$(document).bind('keydown', 'v', function(e) {
+	camera.position.x = 1500;
+	camera.position.y = 1500;
+	camera.position.z = 1000;
+	resetCameraRot()
+	camera.lookAt({x:0,y:0,z:0});
+})
+
+$(document).bind('keydown', 'b', function(e) {
+	camera.position.x = -1500;
+	camera.position.y = -1500;
+	camera.position.z = 1000;
+	resetCameraRot()
+	camera.lookAt({x:0,y:0,z:0});
+})
+
+
+$(document).bind('keydown', 'n', function(e) {
+	camera.position.x = 2500;
+	camera.position.y = 0;
+	camera.position.z = -1000;
+	resetCameraRot()
+	camera.lookAt({x:0,y:0,z:0});
+})
+
+
+$(document).bind('keydown', 'm', function(e) {
+	Mode.rotateCamera = !Mode.rotateCamera
+	if (!Mode.rotateCamera) { resetCameraRot() }
+})
+
+$(document).bind('keydown', 'k', function(e) {
+	Mode.alternateWireframe = !Mode.alternateWireframe
+})
+
+resetCameraRot = function()
+{
+	camera.rotation.x = 0;
+	camera.rotation.y = 0;
+	camera.rotation.z = 0;
+}

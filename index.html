@@ -41,6 +41,7 @@
 			//PI = 3.14159265359
 
 			var container;
+			var t = 0
 
 			var camera, scene, renderer;
 			
@@ -100,7 +101,7 @@
 			
 			function setupBlur()
 			{
-				return
+				if (THREE.EffectComposer == null) { return }
 				console.log("THREE.EffectComposer = " + THREE.EffectComposer)
 				composer = new THREE.EffectComposer( renderer );
 				composer.addPass( new THREE.RenderPass( scene, camera ) );
@@ -109,7 +110,7 @@
 			
 			function prepareBlur()
 			{
-				return
+				if (THREE.EffectComposer == null) { return }
 				hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
 				composer.addPass( hblur );
 
@@ -186,6 +187,7 @@
 					side: THREE.DoubleSide 
 				})
 				
+				//var circle = new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 )
 				var circle = new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 )
 				//var object = new THREE.Mesh(circle, fill_material);
 				var object = new THREE.Mesh(circle, wireframe_material);
@@ -212,10 +214,19 @@
 			{
 				requestAnimationFrame( animate );
 				render();
+				
+				if (Mode.rotateCamera)
+				{
+					camera.rotation.z += .1
+				}
+			
+				t = t + 1
 			}
 
 			function render() 
 			{
+				if (Mode.alternateWireframe) { Mode.isWireframe = !Mode.isWireframe }
+				
 				var bins = Spectrum.timeStep()
 				//console.log("bins: " + JSON.stringify(bins))
 				var timer = Date.now() *.009 
