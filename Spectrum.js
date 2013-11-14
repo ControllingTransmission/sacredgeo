@@ -1,5 +1,7 @@
 
 Spectrum = {
+	gain: 1,
+	gainFactor: 1,
 	timeStep: function() 
 	{
 		if (this._analyserNode == null) { return }
@@ -10,7 +12,7 @@ Spectrum = {
 		var bins = []
 		for (var i = 0; i < this._analyserNode.frequencyBinCount; i ++)
 		{
-			bins.push(freqByteData[i])
+			bins.push(freqByteData[i]*this.gain*this.gainFactor)
 		}
 		
 		return bins
