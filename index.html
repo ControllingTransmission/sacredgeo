@@ -19,10 +19,16 @@
 		<script src="js/jquery.hotkeys.js"></script>
 
 		<script src="js/three.min.js"></script>
+		
 	    <script src="AudioContextMonkeyPatch.js"></script>
 		<script src="Spectrum.js"></script>
+
+<!--		
+	    <script src="js/audioinput/AudioContextMonkeyPatch.js"></script>
+	    <script src="js/audioinput/Spectrum.js"></script>
+-->
+
 		<script src="hotkeys.js"></script>
-		
 
 		<script>
 		
@@ -220,13 +226,14 @@
 							var fill_material = new THREE.MeshBasicMaterial( 
 								{ 
 									color: color, 
-									wireframe: false, 
-									transparent: true, 
+									wireframe: true, 
+									transparent: false, 
 									opacity: 0.95, 
-									side: THREE.DoubleSide 
+									side: THREE.DoubleSide,
+									wireframeLinewidth: 3
 								})
 								
-							object.material =fill_material
+							object.material = fill_material
 							//.setColor(new THREE.Color( 0xff0000 )) // new THREE.Color( color )
 							//object.position.z = bins[i]*3
 							//object.rotation.x = bins[i]/10
@@ -285,7 +292,6 @@
 			
 			function readImage()
 			{
-
 				var img = new Image();
 				img.src = 'images/lips.jpg';
 				
