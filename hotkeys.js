@@ -95,3 +95,15 @@ $(document).bind('keydown', 'shift+d', function(e) {
 	camera.translateX(100);
 	camera.lookAt({x:0,y:0,z:0});
 });
+
+$(document).bind('keydown', 'z', function(e) {
+	Mode.colorSetNumber ++
+	Mode.colorSetNumber = Mode.colorSetNumber % COLORSETS.length
+	console.log("Mode.colorSetNumber = " + Mode.colorSetNumber)
+	//if (Mode.colorSetNumber > COLORSETS.length - 1) { colorSetNumber.colorSetNumber = 0 }
+})
+
+
+$(document).bind('keydown', 'x', function(e) {
+	Mode.rotating = !Mode.rotating
+})

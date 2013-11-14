@@ -32,12 +32,12 @@
 
 		<script>
 		
-			COLORSETS = {}
-			COLORSETS.RAINBOWBRITE = new Array('#71c8bf', '#1ba554', '#cad93b', '#fef02f', '#fbb62c', '#f38a2e', '#ee592c', '#ea1d2b', '#b42767', '#65328f', '#52529f', '#20aeda');
-			COLORSETS.FRANCLYLOVE = new Array('#e20ea3', '#0ef7f3', '#1dfc16', '#f41186', '#cdff07');
-			COLORSETS.CELESTBLUE = new Array('#003de8', '#3f71fc', '#0c9eff', '#3fc8ea', '#4be5db');
-			COLORSETS.VARIOUPINTUS = new Array('#20fcd3', '#8be223', '#f9b727', '#e22917', '#952efc');
-
+			COLORSETS = [
+				new Array('#71c8bf', '#1ba554', '#cad93b', '#fef02f', '#fbb62c', '#f38a2e', '#ee592c', '#ea1d2b', '#b42767', '#65328f', '#52529f', '#20aeda'),
+				new Array('#e20ea3', '#0ef7f3', '#1dfc16', '#f41186', '#cdff07'),
+				new Array('#003de8', '#3f71fc', '#0c9eff', '#3fc8ea', '#4be5db'),
+				new Array('#20fcd3', '#8be223', '#f9b727', '#e22917', '#952efc')
+			]
 			//PI = 3.14159265359
 
 			var container;
@@ -47,7 +47,7 @@
 			var Mode = {
 				isWireframe: false,
 				blackAndWhite: false,
-				colorSetName: "RAINBOWBRITE"
+				colorSetNumber: 0
 			}
 			
 			$(document).ready(function()
@@ -141,8 +141,7 @@
 
 			function addObject()
 			{
-				var i = scene.children.length % COLORSETS.RAINBOWBRITE.length
-				//var color = COLORSETS.RAINBOWBRITE[i]
+				var i = scene.children.length % COLORSETS[0].length
 				var color = new THREE.Color( 0x0000ff );
 				//color.setRGB( Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99),  Math.floor(Math.random()*1.99) );
 
@@ -236,7 +235,8 @@
 						
 						if (b < bins.length)
 						{
-							var color =  COLORSETS[Mode.colorSetName][b % COLORSETS.RAINBOWBRITE.length]
+							var set = COLORSETS[Mode.colorSetNumber]
+							var color =  set[b % set.length]
 							//console.log("object.color = " + object.color)
 							
 							if (Mode.blackAndWhite)
@@ -287,7 +287,7 @@
 							var vs = bins[b]/100
 							var s = vs*vs*vs*vs*vs
 							
-							var minS = 15
+							var minS = 1
 							if (s < minS) { s = minS }
 							object.scale.x = s*.5
 							object.scale.y = s*.5
@@ -296,9 +296,17 @@
 							//object.rotation.z = s/r
 							object.position.z = -s*30
 							
-							var r = .1
-							if (object.position.x < 0) { r = -r }
-							object.rotation.z += r
+							if (Mode.rotating)
+							{
+								var r = .1
+								if (object.position.x < 0) { r = -r }
+								if (object.position.y < 0) { r = -r }
+								object.rotation.z += r
+							}
+							else
+							{
+							object.rotation.z = 0
+							}
 						}
 					}
 					
