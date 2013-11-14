@@ -107,3 +107,10 @@ $(document).bind('keydown', 'z', function(e) {
 $(document).bind('keydown', 'x', function(e) {
 	Mode.rotating = !Mode.rotating
 })
+
+
+$(document).bind('keydown', 'c', function(e) {
+	camera.position.z = 1500;
+	camera.lookAt({x:0,y:0,z:0});
+})
+
