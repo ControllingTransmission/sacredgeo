@@ -312,11 +312,20 @@
 								object.rotation.z = 0
 							}
 						}
-						object.visible = true;
 					}
 					else
 					{
-						object.visible = false;
+						var fill_material = new THREE.MeshBasicMaterial( 
+							{ 
+								color: 0x000000, 
+								wireframe: Mode.isWireframe, 
+								transparent: true, 
+								opacity: 0.95, 
+								side: THREE.DoubleSide,
+								wireframeLinewidth: 3
+							})
+							
+						object.material = fill_material
 					}
 					
 					
