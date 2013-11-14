@@ -65,6 +65,7 @@ Spectrum = {
 	    //this._analyserNode.fftSize = 2048;
 	    this._analyserNode.fftSize = 512;
 	    this._inputPoint.connect(this._analyserNode);
+	
 /*
 	    zeroGain = this._audioContext.createGain();
 	    zeroGain.gain.value = 0.0;
