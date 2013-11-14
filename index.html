@@ -17,6 +17,7 @@
 
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.hotkeys.js"></script>
+		<script src="js/gamepad.js"></script>
 
 		<script src="js/three.min.js"></script>
 		
@@ -53,9 +54,13 @@
 				blackAndWhite: false,
 				colorSetNumber: 0
 			}
-			
+                
 			$(document).ready(function()
 			{
+				if (!gamepad.init()) {
+		        	alert('Your browser does not support gamepads, get the latest Google Chrome or Firefox.');
+		        }
+
 				init();
 				animate();
 			})
