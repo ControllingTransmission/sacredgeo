@@ -61,7 +61,7 @@
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 4000 );
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 40000 );
 				camera.position.z = 1500;
 			    camera.velocity = { x:0, y:0, z:0 };
 			    camera.rotational_velocity = { x:0, y:0 };
@@ -301,11 +301,15 @@
 								var r = .2
 								if (object.position.x < 0) { r = -r }
 								if (object.position.y < 0) { r = -r }
-								object.rotation.z += r
+								object.rotation.z = Math.sin(s)*10
+								//object.rotation.y = s/30
+								//object.rotation.x = s
 							}
 							else
 							{
-							object.rotation.z = 0
+								object.rotation.x = 0
+								object.rotation.y = 0
+								object.rotation.z = 0
 							}
 						}
 					}
