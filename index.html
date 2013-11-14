@@ -19,10 +19,16 @@
 		<script src="js/jquery.hotkeys.js"></script>
 
 		<script src="js/three.min.js"></script>
+		
 	    <script src="AudioContextMonkeyPatch.js"></script>
 		<script src="Spectrum.js"></script>
+
+<!--		
+	    <script src="js/audioinput/AudioContextMonkeyPatch.js"></script>
+	    <script src="js/audioinput/Spectrum.js"></script>
+-->
+
 		<script src="hotkeys.js"></script>
-		
 
 		<script>
 		
@@ -35,6 +41,10 @@
 
 			var camera, scene, renderer;
 			
+			var Mode = {
+				isWireframe: false
+			}
+			
 			$(document).ready(function()
 			{
 				init();
@@ -43,7 +53,6 @@
 			
 			function init() 
 			{
-				
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
@@ -82,7 +91,6 @@
 				setupBindings()
 				setupGrid()
 				setupBlur()
-
 			}
 			
 			function setupBlur()
@@ -108,8 +116,6 @@
 			
 			function setupGrid()
 			{
-				gridRows = []
-				//var max = 27
 				var max = 37
 				var spacing = max*100/27
 				for (var x = 0; x < max; x++)
@@ -162,9 +168,9 @@
 */
 			var wireframe_material = new THREE.MeshBasicMaterial( 
 				{
-					color: 0x000000, 
+					color: 0xffffff, 
 					wireframe: true, 
-					wireframe_linewidth: 1 
+					wireframe_linewidth: 1
 				} );
 			
 			var fill_material = new THREE.MeshBasicMaterial( 
@@ -177,7 +183,8 @@
 				})
 				
 				var circle = new THREE.CircleGeometry( 10, 6, 0, Math.PI * 2 )
-				var object = new THREE.Mesh(circle, fill_material);
+				//var object = new THREE.Mesh(circle, fill_material);
+				var object = new THREE.Mesh(circle, wireframe_material);
 				
 				object.position.set( 0, 0, 0 );
 				object.rotation.z = 3.14159
@@ -231,13 +238,28 @@
 							var fill_material = new THREE.MeshBasicMaterial( 
 								{ 
 									color: color, 
-									wireframe: false, 
+									wireframe: Mode.isWireframe, 
 									transparent: true, 
 									opacity: 0.95, 
-									side: THREE.DoubleSide 
+									side: THREE.DoubleSide,
+									wireframeLinewidth: 3
 								})
 								
-							object.material =fill_material
+							object.material = fill_material
+
+							/*
+							var mat = object.material
+							
+							mat.color = color
+							mat.wireframe = false 
+							mat.transparent = true 
+							mat.opacity = 0.95, 
+							mat.side = THREE.DoubleSide
+							mat.wireframeLinewidth = 3
+														
+							mat.needsUpdate = true
+							*/
+							
 							//.setColor(new THREE.Color( 0xff0000 )) // new THREE.Color( color )
 							//object.position.z = bins[i]*3
 							//object.rotation.x = bins[i]/10
@@ -255,6 +277,8 @@
 */
 							var vs = bins[b]/100
 							var s = vs*vs*vs*vs*vs
+							
+							if (s < 1) { s = 1 }
 							object.scale.x = s*.5
 							object.scale.y = s*.5
 							//object.rotation.x = Math.cos(s)
@@ -311,7 +335,6 @@
 			
 			function readImage()
 			{
-
 				var img = new Image();
 				img.src = 'images/lips.jpg';
 				
