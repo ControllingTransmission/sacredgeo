@@ -30,6 +30,15 @@ $(document).bind('keydown', '7', function(e) {
 	Spectrum.gain = 20;
 });
 
+$(document).bind('keydown', '8', function(e) {
+	Mode.isWireframe = !Mode.isWireframe
+});
+
+$(document).bind('keyup', '8', function(e) {
+
+});
+
+
 $(document).bind('keydown', '-', function(e) {
 	Spectrum.gainFactor -= .05;
 });
