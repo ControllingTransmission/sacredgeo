@@ -43,14 +43,16 @@ $(document).bind('keyup', '9', function(e) {
 });
 
 
-$(document).bind('keydown', '-', function(e) {
+$(document).bind('keydown', 'o', function(e) {
 	Spectrum.gainFactor -= .05;
 });
 
-$(document).bind('keydown', '+', function(e) {
+$(document).bind('keydown', 'p', function(e) {
 	console.log(Spectrum.gainFactor);
-	Spectrum.gainFactor += .05;
+	Spectrum.gainFactor += 0.05;
 });
+
+
 
 
 // Camera position
