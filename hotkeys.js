@@ -50,3 +50,42 @@ $(document).bind('keydown', '+', function(e) {
 
 
 // Camera position
+$(document).bind('keydown', 'w', function(e) {
+	camera.translateY(10);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'shift+w', function(e) {
+	camera.translateY(100);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 's', function(e) {
+	camera.translateY(-10);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'shift+s', function(e) {
+	camera.translateY(-100);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'a', function(e) {
+	camera.translateX(-10);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'shift+a', function(e) {
+	camera.translateY(-100);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'd', function(e) {
+	camera.translateX(10);
+	camera.lookAt({x:0,y:0,z:0});
+});
+
+$(document).bind('keydown', 'shift+d', function(e) {
+	camera.translateX(100);
+	camera.lookAt({x:0,y:0,z:0});
+});
