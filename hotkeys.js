@@ -7,27 +7,27 @@ $(document).bind('keydown', '1', function(e) {
 });
 
 $(document).bind('keydown', '2', function(e) {
-	Spectrum.gain = 2;
+	Spectrum.gain = 1.5;
 });
 
 $(document).bind('keydown', '3', function(e) {
-	Spectrum.gain = 3;
+	Spectrum.gain = 2;
 });
 
 $(document).bind('keydown', '4', function(e) {
-	Spectrum.gain = 4;
+	Spectrum.gain = 2.5;
 });
 
 $(document).bind('keydown', '5', function(e) {
-	Spectrum.gain = 5;
+	Spectrum.gain = 3;
 });
 
 $(document).bind('keydown', '6', function(e) {
-	Spectrum.gain = 10;
+	Spectrum.gain = 5;
 });
 
 $(document).bind('keydown', '7', function(e) {
-	Spectrum.gain = 20;
+	Spectrum.gain = 0;
 });
 
 $(document).bind('keydown', '8', function(e) {
@@ -44,12 +44,12 @@ $(document).bind('keyup', '9', function(e) {
 
 
 $(document).bind('keydown', 'o', function(e) {
-	Spectrum.gainFactor -= .05;
+	Spectrum.gainTweak -= .05;
 });
 
 $(document).bind('keydown', 'p', function(e) {
-	console.log(Spectrum.gainFactor);
-	Spectrum.gainFactor += 0.05;
+	console.log(Spectrum.gainTweak);
+	Spectrum.gainTweak += 0.05;
 });
 
 
