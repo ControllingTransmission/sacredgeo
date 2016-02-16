@@ -1,4 +1,4 @@
-$(document).bind('keydown', '?', function(e) {
+$(document).bind('keydown', 'shift+/', function(e) {
 	$('#instructions').toggle();
 });
 
