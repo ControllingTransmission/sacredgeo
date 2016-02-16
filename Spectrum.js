@@ -1,7 +1,7 @@
 
 Spectrum = {
-	gain: 1,
-	gainTweak: 0,
+	gain: 2,
+	gainTweak: 0.25,
 	timeStep: function() 
 	{
 		if (this._analyserNode == null) { return }

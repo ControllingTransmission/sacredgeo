@@ -6,22 +6,44 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
 			body {
-				font-family: Monospace;
+				font-family: Courier;
 				background-color: #000;
+				color:#fff;
 				margin: 0px;
 				overflow: hidden;
 			}
+			#instructions {
+				position: absolute;
+				top: 10px;
+				right: 10px;
+				text-align: left;
+				color: #fff;
+				font-size: 15px;
+			}
+
 		</style>
 	</head>
 	<body>
 
+		<div id="instructions">
+			1-6: hexagon size<br/>
+			z: change color palette<br/>
+			cvbn: preset views<br/>
+			m: spin<br/>
+			k: wireframe mode<br/>
+			shift+wasd: tilt<br/>
+			8: toggle wireframe<br/>
+			9: toggle white<br/>
+			?: instructions
+		</div>
+
 		<script src="js/jquery.min.js"></script>
 		<script src="js/jquery.hotkeys.js"></script>
-		<script src="js/gamepad.js"></script>
+		<!-- <script src="js/gamepad.js"></script> -->
 
 		<script src="js/three.min.js"></script>
 		
-	    <script src="AudioContextMonkeyPatch.js"></script>
+	  <script src="AudioContextMonkeyPatch.js"></script>
 		<script src="Spectrum.js"></script>
 
 <!--		
@@ -42,6 +64,8 @@
 				new Array('#aaff00', '#ffaa00', '#ff00aa', '#aa00ff', '#00aaff')
 			]
 
+			mobileRotationRate = 200;
+
 			//PI = 3.14159265359
 
 			var container;
@@ -52,14 +76,15 @@
 			var Mode = {
 				isWireframe: false,
 				blackAndWhite: false,
-				colorSetNumber: 0
+				colorSetNumber: 0,
+				rotateSpeed: .1,
 			}
                 
 			$(document).ready(function()
 			{
-				if (!gamepad.init()) {
-		        	alert('Your browser does not support gamepads, get the latest Google Chrome or Firefox.');
-		        }
+				// if (!gamepad.init()) {
+		  //       	alert('Your browser does not support gamepads, get the latest Google Chrome or Firefox.');
+		  //       }
 
 				init();
 				animate();
@@ -225,7 +250,7 @@
 				
 				if (Mode.rotateCamera)
 				{
-					camera.rotation.z += .1
+					camera.rotation.z += Mode.rotateSpeed
 				}
 			
 				t = t + 1
@@ -357,7 +382,7 @@
 				prepareBlur()
 
 				// Gamepad camera position
-				if(navigator.webkitGetGamepads()[0]){          
+				/*if(navigator.webkitGetGamepads()[0]){          
 			      if(Math.abs(navigator.webkitGetGamepads()[0].axes[0]) >= .2)
 			        camera.translateX(navigator.webkitGetGamepads()[0].axes[0].toFixed(1)*10)
 			      if(Math.abs(navigator.webkitGetGamepads()[0].axes[1]) >= .2)
@@ -366,7 +391,7 @@
 			        camera.rotation.y += -navigator.webkitGetGamepads()[0].axes[2].toFixed(1)/100;
 			      if(Math.abs(navigator.webkitGetGamepads()[0].axes[3]) >= .2)
 			        camera.rotation.x += -navigator.webkitGetGamepads()[0].axes[3].toFixed(1)/100;
-			    }
+			    }*/
     
 			    if(Math.abs(camera.orbit.speed) > 0) camera.orbit.step();
 
